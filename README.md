@@ -1,5 +1,6 @@
 # Udagram Infrastructure Deployment
 
+![alt text](udagram.png "Udagram AWS architecture")
 This project provisions the required infrastructure and deploys a dummy application for an Instagram-like app called Udagram.
 
 ## Files
