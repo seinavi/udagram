@@ -22,8 +22,12 @@ Resources:
   S3Bucket:
     Type: AWS::S3::Bucket
     Properties:
-      AccessControl: PublicRead
       BucketName: udagram-static-content-bucket
+      PublicAccessBlockConfiguration:
+          BlockPublicAcls: false
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: ObjectWriter
 
   InstanceSecurityGroup:
     Type: AWS::EC2::SecurityGroup
@@ -98,7 +102,7 @@ Resources:
             apt-get update -y
             apt-get install -y nginx
             service nginx start
-            echo "Welcome to Udagram" > /var/www/html/index.html
+            echo "It works! Udagram, Udacity" > /var/www/html/index.html
 
   AutoScalingGroup:
     Type: AWS::AutoScaling::AutoScalingGroup
@@ -116,7 +120,7 @@ Resources:
         - !Ref TargetGroup
 
 Outputs:
-  LoadBalancerDNS:
+  LoadBalancerDNSName:
     Value: !Join ["", ["http://", !GetAtt LoadBalancer.DNSName]]
     Description: The DNS name of the load balancer
     Export:
